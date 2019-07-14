@@ -1,0 +1,77 @@
+
+# mysql -u root -p$password -Bse "CREATE DATABASE SHAF DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci"
+# mysql -u root -p$password -Bse "GRANT ALL PRIVILEGES ON SHAF.* To 'spaceorder'@'localhost' IDENTIFIED BY 'smile'"
+
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `active` bit(1) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user_role` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `FKa68196081fvovjhkek5m97n3y` (`role_id`),
+  CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `file` (
+  `file_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `size` varchar(255) NOT NULL,
+  `date` varchar(255) NOT NULL,
+  `active` bit(1) DEFAULT b'1',
+  PRIMARY KEY (`file_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `user_file` (
+  `user_file_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `file_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_file_id`),
+  KEY `FKa68196081fvovjhkek5m97n3a` (`file_id`),
+  KEY `FK859n2jvi8ivhui0rl0esws6k` (`user_id`),
+  CONSTRAINT `FK859n2jvi8ivhui0rl0esws6k` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `FKa68196081fvovjhkek5m97n3t` FOREIGN KEY (`file_id`) REFERENCES `file` (`file_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+
+INSERT INTO `role` VALUES (1,'ADMIN');
+INSERT INTO `role` VALUES (2,'USER');
+
+
+--INSERT INTO SHAF.`user` (active,email,last_name,name,password) VALUES 
+--(1,'test@test.com','test','test','$2a$10$we75E0mny1buoz6BivkBK.PY5tXKhOk250PW3dh9XaFUhsyyEq12K');
+
+--INSERT INTO SHAF.user_role (user_id,role_id) VALUES 
+--(1,1)
+--,(1,2)
+--;
+
+
+
+
+

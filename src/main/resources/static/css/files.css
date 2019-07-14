@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.file-container {
+	
+}
+
+.file-container input, button, p, div {
+	display: block;
+}
+
+#list .table td {
+	vertical-align: middle;
+	text-align: center;
+}
+
+#list .table th {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.new-name-input {
+	margin-bottom: 1em;
+}

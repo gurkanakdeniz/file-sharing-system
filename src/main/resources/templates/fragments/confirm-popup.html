@@ -1,0 +1,26 @@
+<div class="modal" th:id="${confirmPopupId} ? ${confirmPopupId} : 'confirm-popup'" th:fragment="confirm-popup">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h4 class="modal-title">Confirm</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div th:id="${confirmPopupId} ? ${confirmPopupId} + '-confirm-popup-body' : 'confirm-popup-body'" class="modal-body">
+				<div th:text="${body}">
+				
+				</div>
+				
+				<div th:id="${confirmPopupId} ? ${confirmPopupId} + '-confirmBodyCustomText' : 'confirmBodyCustomText'"></div>
+			
+			</div>
+
+			<div class="modal-footer">
+				<button th:id="${confirmId}" type="button" class="btn btn-success">Confirm</button>
+                <button type="button" class="btn btn-danger" id="confirmCancel" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <title th:text="${titleText} ? ${titleText} : ':)'"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/files.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/css/datatable/datatables.min.css}">
+    <script th:src="@{/js/jquery/jquery-3.3.1.min.js}"> </script>
+    <script th:src="@{/js/bootstrap/bootstrap.min.js}"> </script>
+    <script th:src="@{/js/datatable/datatables.min.js}"> </script>
+    <script th:src="@{/js/form-validation/form-validation.min.js}"> </script>
+    <script th:src="@{/js/admin.js}"> </script>
+    <script th:src="@{/js/files.js}"> </script>
+    <script th:src="@{/js/profile.js}"> </script>
+    <script th:src="@{/js/script.js}"> </script>
+</head>

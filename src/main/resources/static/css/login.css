@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.form-container {
+	margin-bottom: 5em;
+	margin-top: 5em;
+	padding: 1em;
+	max-width: 25em;
+	/* margin: 2em; */
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
+		rgba(0, 0, 0, 0.24);
+}
+
+.form-container input, p, button {
+	margin-top: 1em;
+}
+
+.login-form {
+	
+}
+
+.register-form {
+	
+}
+
+.login-container {
+	
+}
+
+.login-container input, button, p, div {
+	display: block;
+}
+
+.register-container {
+	/* display: none; */
+	
+}

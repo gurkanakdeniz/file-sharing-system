@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="layouts/default">
+	<head th:replace="fragments/head :: head(titleText='Admin')"></head>	
+  <body>
+    <div class="container-fluid admin-container" layout:fragment="content">
+        <div class="container content-container">
+          <div id="main-content">
+            <div id="user-list" class="user-list-container">
+            
+            	<div th:insert="fragments/popup-datatable :: popup-datatable(~{ :: #popup-datatable-body})">
+			    	<div id="popup-datatable-body" class="modal-body">
+				    	<table id="user-file-list" class="table table-striped table-bordered user-file-list-table" style="width: 100%">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Date</th>
+									<th>Size</th>
+									<th>Process</th>
+								</tr>
+							</thead>
+						</table>
+			    	</div>	
+				</div>
+              
+              <table id="user-list-table" class="table table-striped table-bordered" style="width:100%">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Email</th>
+							<th>Name</th>
+							<th>LastName</th>
+							<th>Roles</th>
+							<th>Process</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<th:block th:each="user : ${users}">
+							<tr>
+								<td th:text="${user.id}">...</td>
+								<td th:text="${user.email}">...</td>
+								<td th:text="${user.name}">...</td>
+								<td th:text="${user.lastName}">...</td>
+								<td th:text="${user.roles}">...</td>
+								
+								<td>
+									<a
+										th:class="${user.status} ? 'btn btn-success' : 'btn btn-warning'"
+										th:href="'/admin/user/turn/status/' + ${user.id}"  
+										th:text="${user.status}? 'disable' : 'active'"> ...
+									</a>
+                          			<a th:onclick="|loadUserFiles('${user.id}')|" 
+                          			   type="buttonModal" 
+                          			   class="btn btn-primary" 
+                          			   data-toggle="modal" 
+                          			   data-target="#popup-datatable">
+                          				O
+                          			</a>
+								</td>
+
+							</tr>
+
+						</th:block>
+					</tbody>
+				</table>
+				
+				<script th:inline="javascript">								
+					function loadUserFiles(userId){
+						/*<![CDATA[*/						
+					    var url = /*[[${userFileList}]]*/ ' ';
+						/*]]>*/
+						
+						getUserFiles(url, userId);
+					}
+				</script>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

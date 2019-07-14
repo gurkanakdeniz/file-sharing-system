@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.welcome {
+	background: #333;
+	padding-top: 10em;
+	padding-bottom : 10em;
+	display: flex;
+	justify-content: center;
+}
+
+.welcome h1 {
+	vertical-align: middle;
+	text-align: center;
+	color: #fff;
+	font-family: monospace;
+	overflow: hidden;
+	border-right: .15em solid orange;
+	white-space: nowrap;
+	margin: 0 auto;
+	letter-spacing: .15em;
+	animation: typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 50% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange }
+}

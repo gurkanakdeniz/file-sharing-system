@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="layouts/default">
+	<head th:replace="fragments/head :: head(titleText='Admin')"></head>	
+  <body>
+    <div class="container-fluid file-container" layout:fragment="content">
+        <div class="container content-container">
+          <div id="main-content">
+				<div class="card">
+					<div class="card-header" data-toggle="collapse" href="#upload">
+						<a class="card-link" data-toggle="collapse" href="#upload">
+							Upload </a>
+					</div>
+					<div id="upload" class="collapse" data-parent="#main-content">
+						<div id="uploadCardBody" class="card-body">
+							<div class="card-header container-fluid upload-nav">
+								<ul class="nav nav-tabs card-header-tabs">
+									<li class="nav-item"><a class="nav-link"
+										data-toggle="collapse" href="#fileUpload">File</a></li>
+									<li class="nav-item"><a class="nav-link"
+										data-toggle="collapse" href="#urlUpload">Link</a></li>
+								</ul>
+							</div>
+							<div id="fileUpload" class="collapse show"
+								data-parent="#uploadCardBody">
+								<div class="card-body">
+									<form method="POST" enctype="multipart/form-data" action="/file/upload">
+										<label for="file"> File Choose :</label> 
+											<input class="form-control-file" type="file" name="file" id="file" value="">
+										<button class="btn btn-primary" type="submit" name="buttonUpload">upload</button>
+									</form>
+								</div>
+							</div>
+
+							<div id="urlUpload" class="collapse"
+								data-parent="#uploadCardBody">
+								<div class="card-body">
+									<form action="#" th:action="@{/file/uploadUrl}" th:object="${model}" method="post">
+										<label for="fileName"> File Name : </label> 
+										<input class="form-control" type="text" th:field="*{fileName}" name="fileName" id="fileName" value="" placeholder="fileName"> 
+										</br> 
+										<label for="fileUrl">File Url : </label> 
+										<input class="form-control" type="text" th:field="*{url}" name="fileUrl" id="fileUrl" value="" placeholder="fileUrl">
+										<button class="btn btn-primary" type="submit" name="buttonUploadUrl">upload</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="card">
+					<div class="card-header" data-toggle="collapse" href="#list">
+						<a class="collapsed card-link" data-toggle="collapse" href="#list">
+							File List </a>
+					</div>
+					<div id="list" class="collapse show" data-parent="#main-content">
+						<div class="card-body">
+
+							<table id="files" class="table table-striped table-bordered"
+								style="width: 100%">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Date</th>
+										<th>Size</th>
+										<th>Process</th>
+									</tr>
+								</thead>
+								<tbody>
+								
+									<th:block th:each="file : ${files}">
+										<tr>
+											<td th:text="${file.name}">...</td>
+											<td th:text="${file.dateString}">...</td>
+											<td th:text="${file.sizeString}">...</td>
+
+											<td><a class="btn btn-success"
+												th:href="@{'list/download/?fileName=' + ${file.name}}">
+													D 
+												</a>
+												<a class="btn btn-dark"
+												href="share">
+													S 
+												</a>
+												<a class="btn btn-secondary"
+												th:onclick="@{'return changeName(\'' + ${file.index}} + '\');'">
+													C 
+												</a>
+												<a class="btn btn-warning"
+												th:onclick="@{'return removeExtension(\'' + ${file.name}} + '\');'">
+													R 
+												</a> 
+												<a class="btn btn-danger" 
+												th:onclick="@{'return deleteFile(\'' + ${file.name}} + '\');'">
+													D 
+												</a> 
+												
+												<p th:id="'newName' + ${file.index}" class="hidden">
+													New Name: 
+													
+													<input class="form-control new-name-input" type="text" th:id="'newFileName' + ${file.index}"/> 
+													
+													<a th:data-parameter-name="${file.name}"
+													th:data-parameter-index="${file.index}"
+														class="btn btn-warning"
+														th:onclick="submitName(this.getAttribute('data-parameter-name'), this.getAttribute('data-parameter-index'))">
+														Submit</a>
+												</p>
+												
+												</td>
+
+										</tr>
+
+									</th:block>
+									
+									<div th:replace="fragments/confirm-popup :: confirm-popup(body='Are you sure you want to delete file?', confirmId='confirmOkDeleteFile')"></div>
+									
+									<div th:replace="fragments/confirm-popup :: confirm-popup(confirmPopupId = 'removeExtensionPopup', body='Are you sure you want to remove extension?', confirmId='confirmOkRemoveExtension')"></div>	
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				
+				<script type="text/javascript">
+					function deleteFile(fileName){
+						$('#confirm-popup').modal('toggle');
+						$('#confirmBodyCustomText').text(fileName);
+					}
+					
+					function removeExtension(fileName){
+						$('#removeExtensionPopup').modal('toggle');
+						$('#removeExtensionPopup-confirmBodyCustomText').text(fileName);
+					}
+					
+					$(document).ready(function() {
+						$("#confirmOkDeleteFile").click(function() {
+							var fileName = $('#confirmBodyCustomText').text();
+							location.href = 'list/delete/?fileName=' + fileName;
+						});
+						
+						$("#confirmOkRemoveExtension").click(function() {
+							var fileName = $('#removeExtensionPopup-confirmBodyCustomText').text();
+							location.href = 'list/removeExtension/?fileName=' + fileName;
+						});
+					});
+				</script>
+			</div>
+        </div>
+      </div>
+  </body>
+</html>

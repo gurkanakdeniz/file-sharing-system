@@ -1,0 +1,18 @@
+.profile-form {
+  max-width: 600px;
+}
+.user-list-container {
+
+}
+.profile-form-item {
+  margin: 0.5em;
+}
+.profile-form-item-label {
+  padding-top: 0.25em;
+}
+.profile-form-item-input {
+}
+
+.change-password {
+	text-align : center;
+}

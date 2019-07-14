@@ -1,0 +1,40 @@
+.admin-container {
+	
+}
+
+.admin-container input, button, p, div {
+	display: block;
+}
+
+#user-list .table {
+	word-break: break-all;
+}
+
+#user-list .table td {
+	vertical-align: middle;
+	text-align: center;
+}
+
+#user-list .table th {
+	vertical-align: middle;
+	text-align: center;
+}
+
+#user-list-container {
+	
+}
+
+.user-file-list-table {
+	word-break: break-all;
+}
+
+.user-file-list-table .table td  {
+	vertical-align: middle;
+	text-align: center;
+	max-width : 20px !important;
+}
+
+.user-file-list-table .table th {
+	vertical-align: middle;
+	text-align: center;
+}

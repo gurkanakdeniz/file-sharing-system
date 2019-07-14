@@ -1,0 +1,60 @@
+CREATE TABLE hibernate_sequence (next_val BIGINT);
+
+
+CREATE TABLE role (
+  role_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  role varchar(255) DEFAULT NULL
+);
+
+CREATE TABLE user (
+  user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  active BIT DEFAULT NULL,
+  email varchar(255) NOT NULL,
+  last_name varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  password varchar(255) NOT NULL
+);
+
+CREATE TABLE `user_role` (
+  user_id INTEGER NOT NULL,
+  role_id INTEGER NOT NULL,
+  PRIMARY KEY (user_id, role_id),
+  CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (user_id) REFERENCES user (user_id),
+  CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (role_id) REFERENCES role (role_id)
+);
+
+
+CREATE TABLE file (
+   file_id INTEGER PRIMARY KEY AUTOINCREMENT,
+   name           varchar(255) NOT NULL,
+   size            varchar(255) NOT NULL,
+   date        varchar(255) NOT NULL,
+   active         BIT DEFAULT 1
+);
+
+
+CREATE TABLE user_file (
+  user_file_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  file_id INTEGER NOT NULL,
+  CONSTRAINT `FK859n2jvi8ivhui0rl0esws6k` FOREIGN KEY (user_id) REFERENCES user (user_id),
+  CONSTRAINT `FKa68196081fvovjhkek5m97n3t` FOREIGN KEY (file_id) REFERENCES file (file_id)
+);
+
+
+INSERT INTO `role` VALUES (1,'ADMIN');
+INSERT INTO `role` VALUES (2,'USER');
+
+
+--INSERT INTO SHAF.`user` (active,email,last_name,name,password) VALUES 
+--(1,'test@test.com','test','test','$2a$10$we75E0mny1buoz6BivkBK.PY5tXKhOk250PW3dh9XaFUhsyyEq12K');
+
+--INSERT INTO SHAF.user_role (user_id,role_id) VALUES 
+--(1,1)
+--,(1,2)
+--;
+
+
+
+
+

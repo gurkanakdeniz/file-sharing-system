@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="layouts/default">
+<head th:replace="fragments/head :: head(titleText='Profile')"></head>
+<body>
+	<div class="container-fluid file-container" layout:fragment="content">
+		<div class="container content-container">
+			<div id="main-content">
+				<div id="profile"
+					class="row justify-content-center profile-container">
+
+					<form th:object="${user}" action="#" th:action="@{/profile}" method="POST" class="container profile-form needs-validation" novalidate>
+						<div class="row profile-form-item">
+							<div class="col-md-4 profile-form-item-label">
+								<label for="name"> Name : </label>
+							</div>
+							<div class="col-md-8 .profile-form-item-input">
+								<input class="form-control" th:field="*{name}" type="text" name="name" id="name"
+									value="" placeholder="name" required>
+							</div>
+						</div>
+						<div class="row profile-form-item">
+							<div class="col-md-4 profile-form-item-label">
+								<label for="lastName"> Last Name : </label>
+							</div>
+							<div class="col-md-8 .profile-form-item-input">
+								<input class="form-control" th:field="*{lastName}" type="text" name="lastName" id="lastName"
+									value="" placeholder="last name" required>
+							</div>
+						</div>
+
+						<div class="row profile-form-item">
+							<div class="col-md-4 profile-form-item-label">
+								<label for="email"> Email : </label>
+							</div>
+							<div class="col-md-8 .profile-form-item-input">
+								<input class="form-control" th:field="*{email}" type="email" name="email" id="email"
+									value="" placeholder="email" required>
+							</div>
+						</div>
+
+						<div class="row profile-form-item">
+							<div class="col-md-4 profile-form-item-label">
+								<label for="password"> Password : </label>
+							</div>
+							<div class="col-md-8 .profile-form-item-input">
+								<input class="form-control is-invalid" type="password" name="password"
+									id="password" value="" placeholder="password" data-validator="required|min:4|max:10" required>
+							</div>
+						</div>
+
+						<div id="passwordChangeShow" class="row profile-form-item change-password">
+							<div class="col-md-12 profile-form-item-label">
+								<label class="btn btn-dark" for="newPassword"> Change Password </label>
+							</div>
+						</div>
+						<div id="passwordChange" class = "hidden">
+							<div class="row profile-form-item">
+								<div class="col-md-4 profile-form-item-label">
+									<label for="newPassword"> New Password : </label>
+								</div>
+								<div class="col-md-8 .profile-form-item-input">
+									<input class="form-control" type="password" name="newPassword"
+										id="newPassword" value="" placeholder="New Password">
+								</div>
+							</div>
+
+							<div class="row profile-form-item">
+								<div class="col-md-4 profile-form-item-label">
+									<label for="passwordAgain"> Password Again : </label>
+								</div>
+								<div class="col-md-8 .profile-form-item-input">
+									<input class="form-control" type="password"
+										name="passwordAgain" id="passwordAgain" value=""
+										placeholder="Password Again">
+								</div>
+							</div>
+
+						</div>
+
+						<button class="btn btn-primary form-control profile-form-item"
+							type="submit" >Save</button>
+
+						<th:block th:object="${user}">
+
+							<div class="text-center" th:each="notific : *{notification}">
+								<!-- 					         <span th:text="${mapEntry.key}"></span> =  -->
+								<span class="something-success" th:text="${notific.value}"></span>
+							</div>
+						</th:block>
+
+						<th:block th:object="${user}">
+
+							<div class="text-center" th:each="error : *{errors}">
+								<!-- 					         <span th:text="${mapEntry.key}"></span> =  -->
+								<span class="something-wrong" th:text="${error.value}"></span>
+							</div>
+						</th:block>
+
+					</form>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

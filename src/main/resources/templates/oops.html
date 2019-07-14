@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+	<title>Error Page</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	</head>
+	
+	<body>
+		<div class="container">			
+			<div class="panel-group oops-panel">
+				<div class="panel panel-primary">
+					<div class="panel-body">
+						<img th:src="@{/images/oops.gif}" class="img-responsive center-block oops-img" alt="Oops" />
+					</div>
+					<p class="admin-message-text text-center" th:utext="${errorMessage}"></p>
+					<p class="admin-message-text text-center" ><a href="/">Go Home</a> </p>
+					
+				</div>
+				<script>
+					setInterval(function() {
+						location.href = window.location.protocol
+								+ "//"
+								+ window.location.hostname
+								+ (window.location.port ? ':'
+										+ window.location.port : '');
+					}, 5000);
+				</script>
+			</div>
+			
+		</div>
+	</body>
+</html>

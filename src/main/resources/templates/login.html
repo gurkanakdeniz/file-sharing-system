@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<head lang="en" th:replace="fragments/head :: head"></head>
+  <body>
+    <div class="container-fluid">
+      <div class="container-fluid login-container">
+        <div class="container form-container">
+          <div id="login" class="row justify-content-center login-container">
+            <form th:action="@{/login}" method="POST" class="login-form needs-validation" novalidate>
+              <!-- is-valid  is-invalid class-->
+              <input class="form-control" id="email" name="email" type="email" placeholder="email" required/>
+              <input  class="form-control" id="password" name="password" type="password" placeholder="password" required/>
+              <button class="btn btn-success form-control" type="submit">Login</button>
+              <p onclick="toggleLogin()" class="message">Not registered? <a href="#">Create an account</a></p>
+            </form>
+          </div>
+
+          <div id="register" class="row justify-content-center register-container hidden">
+            <form autocomplete="off" method="POST" th:action="@{/registration}"
+					th:object="${user}" class="register-form needs-validation">
+              <input class="form-control" id="name" name="name" type="text" placeholder="name" required/>
+              <input class="form-control" id="lastName" name="lastName" type="text" placeholder="last name" required/>
+              <input class="form-control" id="email" name="email" type="email" placeholder="email" required/>
+              <label
+								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								class="validation-message"></label>
+              <input  class="form-control" id="password" name="password" type="password" placeholder="password" required/>
+              <input  class="form-control" id="password2" name="password2" type="password" placeholder="password" required/>
+              <button class="btn btn-success form-control" type="submit">Register</button>
+              <p onclick="toggleLogin()" class="message">Already registered? <a href="#">Sign In</a></p>
+            </form>
+          </div>
+          <div align="center" th:if="${param.error}">
+				<p class="something-wrong">Something wrong.. :/</p>
+		  </div>
+		  						
+		  <th:block th:object="${user}">
+		  	<div class="text-center" th:each="error : *{errors}">
+				<span class="something-wrong" th:text="${error.value}"></span>
+			</div>
+		 </th:block>
+		 
+		 <th:block th:object="${user}">
+		 	<div class="text-center" th:each="notific : *{notification}">
+				<span class="something-success" th:text="${notific.value}"></span>
+			</div>
+		</th:block>
+
+        </div>
+      </div>
+    </div>
+  </body>
+  <script th:src="@{/js/script.js}"> </script>
+</html>

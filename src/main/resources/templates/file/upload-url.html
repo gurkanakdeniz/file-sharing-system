@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:if="${message}">
+		<h2 th:text="${message}" />
+	</div>
+
+	<div>
+		<form action="#" th:action="@{/file/uploadUrl}" th:object="${model}"
+			method="post">
+			<p>
+				File Url Upload: <input type="text" th:field="*{url}" />
+			</p>
+			<p>
+				File Name Upload: <input type="text" th:field="*{fileName}" />
+			</p>
+			<p>
+				<input type="submit" value="Submit" /> <input type="reset"
+					value="Reset" />
+			</p>
+		</form>
+
+	</div>
+
+	<!-- 	<div> -->
+	<!-- 		<ul> -->
+	<!-- 			<li th:each="file : ${files}"> -->
+	<!-- 				<a th:href="${file}" th:text="${file}" /> -->
+	<!-- 			</li> -->
+	<!-- 		</ul> -->
+	<!-- 	</div> -->
+
+</body>
+</html>
+
