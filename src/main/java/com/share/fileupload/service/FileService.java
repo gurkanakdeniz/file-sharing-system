@@ -52,4 +52,8 @@ public interface FileService {
     void saveFile(FileEntity file);
 
     void saveUserFile(UserFileEntity userFile);
+
+    String shareFile(String filePath);
+
+    String sharedFile(String hash);
 }

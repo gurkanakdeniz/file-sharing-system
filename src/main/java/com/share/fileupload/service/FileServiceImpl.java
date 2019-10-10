@@ -4,13 +4,13 @@ import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -18,7 +18,6 @@ import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.io.FilenameUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -29,10 +28,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.share.fileupload.configuration.StorageProperties;
 import com.share.fileupload.entity.FileEntity;
+import com.share.fileupload.entity.ShareFileEntity;
 import com.share.fileupload.entity.UserEntity;
 import com.share.fileupload.entity.UserFileEntity;
 import com.share.fileupload.model.ResultModel;
 import com.share.fileupload.repository.FileRepository;
+import com.share.fileupload.repository.ShareFileRepository;
 import com.share.fileupload.repository.UserFileRepository;
 import com.share.fileupload.utils.CommonUtil;
 
@@ -49,6 +50,9 @@ public class FileServiceImpl implements FileService {
 
     @Autowired
     private UserFileRepository userFileRepository;
+    
+    @Autowired
+    private ShareFileRepository shareFileRepository;
 
     @Autowired
     public FileServiceImpl(StorageProperties properties) {
@@ -461,6 +465,34 @@ public class FileServiceImpl implements FileService {
     @Override
     public void saveUserFile(UserFileEntity userFile) {
         userFileRepository.save(userFile);
+    }
+
+    @Override
+    public String shareFile(String filePath) {
+        ShareFileEntity entity = new ShareFileEntity();
+        entity.setActive(true);
+        entity.setDate(new Date().toString());
+        entity.setFilePath(filePath);
+        String hash = UUID.randomUUID().toString().replaceAll("-", "");
+        entity.setHashValue(hash);
+        
+        shareFileRepository.save(entity);
+        return hash;
+    }
+    
+    @Override
+    public String sharedFile(String hash) {
+        
+        ShareFileEntity shareFile = shareFileRepository.findbyUUID(hash);
+        
+        if (shareFile != null && shareFile.isActive()) {
+            shareFile.setActive(false);
+            shareFileRepository.save(shareFile);
+            
+            return shareFile.getFilePath();
+        }
+        
+        return null;
     }
 
     public Path getUserSavePath(UserEntity user) {

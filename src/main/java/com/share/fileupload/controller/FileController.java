@@ -1,5 +1,6 @@
 package com.share.fileupload.controller;
 
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -17,12 +18,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.share.fileupload.entity.UserEntity;
 import com.share.fileupload.model.DownloadModel;
 import com.share.fileupload.model.ResponseModel;
@@ -238,6 +242,27 @@ public class FileController extends BaseController {
         }
 
         return "redirect:/file/list";
+    }
+    
+    @PostMapping(value = {"/list/share/", "/list/share"})
+    public @ResponseBody String shareFile(@RequestBody String fileName) {
+        
+        if (!StringUtils.isEmpty(fileName) ) {
+            try {
+                // TODO: Auth
+                UserEntity currentUser = userService.getCurrentUser();
+                Path userSavePath = fileService.getUserSavePath(currentUser);
+                Path filePath = userSavePath.resolve(fileName);
+                
+                String hash = fileService.shareFile(filePath.toAbsolutePath().toString());
+                
+                return new Gson().toJson(hash);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "";
     }
     
 }

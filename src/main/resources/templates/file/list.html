@@ -81,7 +81,7 @@
 													D 
 												</a>
 												<a class="btn btn-dark"
-												href="share">
+												th:onclick="@{'return shareFile(\'' + ${file.name}} + '\');'">
 													S 
 												</a>
 												<a class="btn btn-secondary"
@@ -134,6 +134,27 @@
 					function removeExtension(fileName){
 						$('#removeExtensionPopup').modal('toggle');
 						$('#removeExtensionPopup-confirmBodyCustomText').text(fileName);
+					}
+					
+					function shareFile(fileName){
+							$.ajax({
+								type : "POST",
+								contentType : "application/json",
+								url : '/file/list/share',
+								data : fileName,
+								dataType : 'json',
+								cache : false,
+								beforeSend: function() {
+									// loading vs
+								},
+								success : function(result) {
+									alert(result);
+								},
+								error: function(jqXHR, textStatus, errorThrown) {
+									console.log(JSON.stringify(jqXHR));
+									console.log(JSON.stringify(textStatus));
+								}
+							});
 					}
 					
 					$(document).ready(function() {
