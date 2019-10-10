@@ -41,6 +41,14 @@ CREATE TABLE user_file (
   CONSTRAINT `FKa68196081fvovjhkek5m97n3t` FOREIGN KEY (file_id) REFERENCES file (file_id)
 );
 
+CREATE TABLE share_file (
+   hash_id INTEGER PRIMARY KEY AUTOINCREMENT,
+   hash_value           varchar(255) NOT NULL,
+   file_path            varchar(255) NOT NULL,
+   date        varchar(255) NOT NULL,
+   active         BIT DEFAULT 1
+);
+
 
 INSERT INTO `role` VALUES (1,'ADMIN');
 INSERT INTO `role` VALUES (2,'USER');
